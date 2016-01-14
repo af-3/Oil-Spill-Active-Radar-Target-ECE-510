@@ -9,7 +9,7 @@ Cooperating radar target design for Portland State University ECE 510 winter 201
    * Be no bigger then 3 X 3 X 2 inches
    * Have a detection range of 100 meters 
  * Could<br>
-   * Have smart trtacking capability
+   * Have smart tracking capability
    * 
 ## Additional Notes<br>
  * Radar transmitter output power -6.02 dBm (.25 mW)
