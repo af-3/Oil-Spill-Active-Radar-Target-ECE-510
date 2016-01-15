@@ -1,5 +1,6 @@
 # Oil-Spill-Active-Radar-Target-ECE-510
-Cooperating radar target design for Portland State University ECE 510 winter 2016 Class
+Cooperating radar target design for Portland State University ECE 510 winter 2016 Class<br>
+[Radar Equations google Dock](https://docs.google.com/spreadsheets/d/1SBJ6qjm3yuyV2hIqerSS4fywFo_I5tQoiRfdYXWfvTU/pubhtml)
 
 ##Requirements
  * Must
