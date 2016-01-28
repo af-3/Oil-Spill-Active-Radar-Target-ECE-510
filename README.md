@@ -6,13 +6,15 @@ Cooperating radar target design for Portland State University ECE 510 winter 201
  * Must
    * Have a detection range of 10 meters
    * Be enviromentaly friendy spicificly marian friendy
+   * have 8 working targets
  * Should
    * Be no bigger then 3 X 3 X 2 inches
    * Have a detection range of 100 meters 
  * Could<br>
    * Have smart tracking capability
-   * 
-## Additional Notes<br>
+   * Have 64 working targets
+
+##Additional Notes
  * Radar transmitter output power -6.02 dBm (.25 mW)
  * Radar operating frequincy is 2.304080 GHz
  * Antenna beam width on the vertical axis is about 68 digrees
