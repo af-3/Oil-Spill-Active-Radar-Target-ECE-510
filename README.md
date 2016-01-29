@@ -5,14 +5,15 @@ Cooperating radar target design for Portland State University ECE 510 winter 201
 ##Requirements
  * Must
    * Have a detection range of 10 meters
-   * Be enviromentaly friendy spicificly marian friendy
-   * have 8 working targets
+   * Be enviromentaly friendy specifically marine friendy
+   * Build 8 working targets, but support at least 64 targets
+   * Function correctly for at least 48 hours
+   * Software must detect at least 64 targets
  * Should
    * Be no bigger then 3 X 3 X 2 inches
    * Have a detection range of 100 meters 
- * Could<br>
+ * Could
    * Have smart tracking capability
-   * Have 64 working targets
 
 ##Additional Notes
  * Radar transmitter output power -6.02 dBm (.25 mW)
