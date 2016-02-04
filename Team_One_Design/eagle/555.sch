@@ -8498,29 +8498,38 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <part name="P+1" library="supply1" deviceset="VCC" device=""/>
 <part name="P+2" library="supply1" deviceset="VCC" device=""/>
 <part name="P+3" library="supply1" deviceset="VCC" device=""/>
-<part name="R1" library="resistor" deviceset="R-US_" device="0204/7" value="100k"/>
 <part name="SUPPLY3" library="supply2" deviceset="GND" device=""/>
-<part name="C1" library="resistor" deviceset="C-EU" device="C0805" value="1nF"/>
-<part name="C2" library="resistor" deviceset="C-EU" device="C0805" value="0.1uF"/>
+<part name="C1" library="resistor" deviceset="C-EU" device="050-024X044" value="1nF"/>
+<part name="C2" library="resistor" deviceset="C-EU" device="050-024X044" value="0.1uF"/>
 <part name="SUPPLY4" library="supply2" deviceset="GND" device=""/>
 <part name="P1" library="potentiometer" deviceset="TRIM_US-" device="3223J" value="1k"/>
 <part name="L1" library="resistor" deviceset="L-US" device="L2012C"/>
 <part name="U$1" library="ece510_library" deviceset="TLC555CDR" device=""/>
-<part name="R3" library="resistor" deviceset="R-US_" device="R0805" value="1.8k"/>
+<part name="RB" library="resistor" deviceset="R-US_" device="R0805" value="xxx"/>
 <part name="P2" library="potentiometer" deviceset="TRIM_US-" device="3223J" value="1k"/>
-<part name="R2" library="resistor" deviceset="R-US_" device="R0805" value="1.8k"/>
+<part name="R2" library="resistor" deviceset="R-US_" device="R0805" value="1.5k"/>
+<part name="C3" library="resistor" deviceset="C-EU" device="050-024X044" value="0.1uF"/>
+<part name="SUPPLY2" library="supply2" deviceset="GND" device=""/>
+<part name="RA" library="resistor" deviceset="R-US_" device="R0805" value="xxx"/>
 </parts>
 <sheets>
 <sheet>
 <plain>
-<text x="55.88" y="73.66" size="1.778" layer="97">to diode and antenna</text>
+<text x="35.56" y="73.66" size="1.778" layer="97">to diode and antenna</text>
+<text x="109.22" y="78.74" size="1.778" layer="97">Duty cycle set by Tc(H) and Tc(L)
+
+Tc(H) = Ct(Ra+Rb)ln(2)
+
+Tc(H) = Ct(Rb)ln(2)
+
+period
+To = Tc(H) + Tc(L)</text>
 </plain>
 <instances>
 <instance part="SUPPLY1" gate="GND" x="101.6" y="35.56"/>
 <instance part="P+1" gate="VCC" x="91.44" y="68.58"/>
 <instance part="P+2" gate="VCC" x="99.06" y="91.44"/>
 <instance part="P+3" gate="VCC" x="76.2" y="35.56"/>
-<instance part="R1" gate="G$1" x="99.06" y="83.82" rot="R90"/>
 <instance part="SUPPLY3" gate="GND" x="60.96" y="63.5"/>
 <instance part="C1" gate="G$1" x="101.6" y="43.18"/>
 <instance part="C2" gate="G$1" x="91.44" y="43.18"/>
@@ -8528,9 +8537,12 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <instance part="P1" gate="G$1" x="99.06" y="68.58"/>
 <instance part="L1" gate="G$1" x="53.34" y="63.5" rot="R180"/>
 <instance part="U$1" gate="G$1" x="78.74" y="53.34"/>
-<instance part="R3" gate="G$1" x="116.84" y="55.88" rot="R180"/>
+<instance part="RB" gate="G$1" x="116.84" y="55.88" rot="R180"/>
 <instance part="P2" gate="G$1" x="101.6" y="55.88" rot="R270"/>
 <instance part="R2" gate="G$1" x="58.42" y="50.8" rot="R180"/>
+<instance part="C3" gate="G$1" x="76.2" y="76.2"/>
+<instance part="SUPPLY2" gate="GND" x="76.2" y="68.58"/>
+<instance part="RA" gate="G$1" x="99.06" y="83.82" rot="R270"/>
 </instances>
 <busses>
 </busses>
@@ -8550,6 +8562,10 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <segment>
 <pinref part="C1" gate="G$1" pin="2"/>
 <pinref part="SUPPLY1" gate="GND" pin="GND"/>
+</segment>
+<segment>
+<pinref part="C3" gate="G$1" pin="2"/>
+<pinref part="SUPPLY2" gate="GND" pin="GND"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -8572,10 +8588,13 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <wire x1="88.9" y1="60.96" x2="91.44" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="P+1" gate="VCC" pin="VCC"/>
 <wire x1="91.44" y1="60.96" x2="91.44" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="60.96" x2="88.9" y2="78.74" width="0.1524" layer="91"/>
+<pinref part="C3" gate="G$1" pin="1"/>
+<wire x1="88.9" y1="78.74" x2="76.2" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="R1" gate="G$1" pin="2"/>
 <pinref part="P+2" gate="VCC" pin="VCC"/>
+<pinref part="RA" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="N$7" class="0">
@@ -8597,7 +8616,7 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <wire x1="96.52" y1="50.8" x2="96.52" y2="45.72" width="0.1524" layer="91"/>
 <pinref part="C1" gate="G$1" pin="1"/>
 <wire x1="96.52" y1="45.72" x2="101.6" y2="45.72" width="0.1524" layer="91"/>
-<pinref part="R3" gate="G$1" pin="1"/>
+<pinref part="RB" gate="G$1" pin="1"/>
 <wire x1="121.92" y1="55.88" x2="121.92" y2="45.72" width="0.1524" layer="91"/>
 <wire x1="121.92" y1="45.72" x2="101.6" y2="45.72" width="0.1524" layer="91"/>
 <junction x="101.6" y="45.72"/>
@@ -8611,11 +8630,12 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <wire x1="93.98" y1="55.88" x2="93.98" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="P1" gate="G$1" pin="A"/>
 <wire x1="93.98" y1="60.96" x2="99.06" y2="60.96" width="0.1524" layer="91"/>
+<junction x="93.98" y="55.88"/>
 </segment>
 </net>
 <net name="N$5" class="0">
 <segment>
-<pinref part="R3" gate="G$1" pin="2"/>
+<pinref part="RB" gate="G$1" pin="2"/>
 <pinref part="P2" gate="G$1" pin="E"/>
 <wire x1="109.22" y1="55.88" x2="111.76" y2="55.88" width="0.1524" layer="91"/>
 <pinref part="P2" gate="G$1" pin="S"/>
@@ -8633,10 +8653,10 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 <net name="N$6" class="0">
 <segment>
 <pinref part="P1" gate="G$1" pin="E"/>
-<pinref part="R1" gate="G$1" pin="1"/>
 <wire x1="99.06" y1="78.74" x2="99.06" y2="76.2" width="0.1524" layer="91"/>
 <wire x1="99.06" y1="76.2" x2="104.14" y2="76.2" width="0.1524" layer="91"/>
 <junction x="99.06" y="76.2"/>
+<pinref part="RA" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="N$8" class="0">
@@ -8651,4 +8671,10 @@ Source: http://www.bourns.com/data/global/PDFs/3223.PDF</description>
 </sheets>
 </schematic>
 </drawing>
+<compatibility>
+<note version="6.3" minversion="6.2.2" severity="warning">
+Since Version 6.2.2 text objects can contain more than one line,
+which will not be processed correctly with this version.
+</note>
+</compatibility>
 </eagle>
