@@ -27,7 +27,10 @@ CHUNK = 128
 # How big the gui should be 
 SIZE = 512
 # how many windows of data to keep for the psd
-NUM_WINDOWS=8
+NUM_WINDOWS=1
+
+# how many sigma out the signal must be before it is considered significant
+NUM_SIGMA=4
 
 # DO NOT MODIFY
 Fs=1/float(TS)
@@ -59,6 +62,13 @@ class SpectroPanel(wx.Panel):
         self.sample_pos = self.sample_pos+1
         if self.sample_pos == NUM_WINDOWS:
             self.sample_pos = 0
+
+            # if this is the first time through, we record the average power/hz to use for thresholding
+            if self.in_setup:
+                freq,psd = sig.welch(np.roll(self.sample_buffer,-self.sample_pos*CHUNK),
+                                 fs=Fs, nfft=2*SIZE, scaling='spectrum')
+                self.threshold = np.mean(psd) + NUM_SIGMA*np.std(psd)
+                print self.threshold
             self.in_setup = False
             
         # we need to wait until we have gathered at least NUM_WINDOWS
@@ -72,19 +82,28 @@ class SpectroPanel(wx.Panel):
 
         # copy over all the frequency data to that column
         self.graph[:,self.graph_pos] = psd[:-1]
-        self.graph_pos = (self.graph_pos + 1) % SIZE
 
+
+        # label all points greater than the threshold as marked
+        indices = [i for i,v in enumerate(psd[:-1]) if v > self.threshold]
+        self.graph[indices,self.graph_pos] = np.nan
+        self.graph_pos = (self.graph_pos + 1) % SIZE
+        
         # rotate data so we get a nice scrolling spectrogram
-        scaled_data = np.roll(self.graph,-self.graph_pos,1)
+        unscaled_data = np.roll(self.graph,-self.graph_pos,1)
 
         # scale graph to take full example of 8 bit
         # display. Spectrogram floating point power values scaled to be between 0-255
-        minval = np.min(scaled_data)
+        minval = np.nanmin(unscaled_data)
         minval = 0
-        maxval = np.max(scaled_data) - minval
+        maxval = np.nanmax(unscaled_data) - minval
+
+        scaled_data = (unscaled_data-minval)/maxval
 
         # create a bitmap of the colored spectrogram
-        colored = np.uint8(255*cm.hot((scaled_data-minval)/maxval)[:,:,0:3])
+        colored = np.uint8(255*matplotlib.cm.hot(scaled_data)[:,:,0:3])
+        # make all thresholded values blue
+        colored[np.isnan(scaled_data)] = [0,0,255]
 
         # update the bmp
         self.bmp = wx.BitmapFromBuffer(SIZE, SIZE, colored)
